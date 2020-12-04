@@ -5,16 +5,38 @@
     $resultado = mysqli_query($conexion, $sql) or die(mysqli_error());
 
     function updAmigos($id){
-        $sql = "SELECT * 
+        $sqlAmigos = "SELECT * 
         FROM friends a JOIN people p ON a.id2 = p.id 
         WHERE a.id1 = $id 
         UNION SELECT * 
         FROM friends a JOIN people p ON a.id1 = p.id 
-        WHERE a.id2 = $id"
+        WHERE a.id2 = $id";
+
+        $resultadoAmigos = mysqli_query($conexion, $sql) or die(mysqli_error());
+        //return $resultadoAmigos;
+
+        /*echo "<select name="amigos" id="amigos" multiple>";
+    while ($row = mysql_fetch_row($resultadoAmigos))
+    {
+        echo "<option value=\"".$row [ "id" ]."\">".$row [ "lastname" ].", ".$row [ "firstname" ]."</option>";
+    }
+        echo "</select>";*/
     }
 
     function updDisponibles($id){
+        $sqlDisp = 
+        "SELECT *
+        FROM people
+        MINUS   
+        (SELECT * 
+        FROM friends a JOIN people p ON a.id2 = p.id 
+        WHERE a.id1 = $id 
+        UNION SELECT * 
+        FROM friends a JOIN people p ON a.id1 = p.id 
+        WHERE a.id2 = $id";
 
+        $resultadoDisponibles = mysqli_query($conexion, $sql) or die(mysqli_error());
+        return $resultadoDisponibles;
     }
 
     //while($row = mysqli_fetch_array($resultado)) {
@@ -64,7 +86,8 @@
                             </tr>', $id, $fn, $ln, sprintf('<input type="submit" value="" name="%s">', $id));
                     }
                     if(isset($_POST[$id])){
-
+                        $sql = updAmigos($id);
+                        
                     }
                 ?>
             </tbody>
@@ -76,10 +99,16 @@
                 <label for="amigos">Amigos</label>
                 <select name="amigos" id="amigos" multiple>
                     <!--Habria que generar el codigo dinamicamente, pongo algunos ejemplos-->
-                    <option value="mcrg">Manuel Cristobal Roldan Gomez</option>
+                    <!--<option value="mcrg">Manuel Cristobal Roldan Gomez</option>
                     <option value="dmg">Daniel Melero Garcia</option>
                     <option value="fmbn">Francisco Maria Bono Navarro</option>
-                    <option value="magm">Manuel Antonio Gomez Merino</option>
+                    <option value="magm">Manuel Antonio Gomez Merino</option><-->
+                    <?php
+                    //$resultado = mysqli_query($conexion, $sql) or die(mysqli_error());
+                    while($row = mysqli_fetch_array($resultado)) {
+                       echo "<option value=\"".$row [ "id" ]."\">".$row [ "lastname" ].", ".$row [ "firstname" ]."</option>";
+                    }
+                    ?>
                 </select>
                 <br><br>
                 <input type="submit" value="" name="boton1" class="boton1">
