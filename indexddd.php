@@ -1,4 +1,5 @@
 <?php
+    
     include 'db.php';
     include 'display1.php';
     $conexion = mysqli_connect("localhost", "root", "root");

@@ -1,0 +1,37 @@
+.empty_dg_caption { text-align:center;}
+
+/* tooltip for floating tooltips */
+.tooltip {display:none;position:absolute;border:1px solid #82806b;background-color:#ffffe0;border-radius:1px;padding:2px 5px;color:#333;}	
+
+.dg_scroll_outer { margin:0 auto; }
+.dg_left { text-align: left; }
+.dg_center { text-align: center; }
+.dg_right { text-align: right; }
+.dg_nowrap { white-space: nowrap; }
+.dg_underline { text-decoration: underline; }
+.dg_loading_image { margin:0 auto; width:150px; text-align:center;}
+.dg_pointer { cursor:pointer; }
+.dg_counter {margin-left:5px;}
+.dg_exi_td { width:20px; text-align:right; }
+
+.resizable-textarea .grippie { BACKGROUND: url(../../images/grippie.png) #eee no-repeat center 2px; border-right: #ddd 1px solid; border-top:#ddd 0px solid;  overflow: hidden; border-left: #ddd 1px solid; cursor: s-resize; border-bottom: #ddd 1px solid; height:6px; }
+.empty_dg_question_mark    { border:0px; margin-bottom:-1px; cursor:help; }
+.empty_dg_messages_wrapper { margin:10px auto 7px auto; text-align:center; }
+.empty_dg_textarea         { resize:none; }
+
+DIV.default_dg_sql_message      { font-family:arial; font-size:12px; color:#333333; }
+DIV.empty_dg_sql_message        { font-family:arial; font-size:12px; color:#333333; }
+DIV.empty_dg_ok_message SPAN    { margin-left:5px; margin-right:5px; }
+DIV.empty_dg_ok_message IMG     { margin-bottom:-2px; }
+DIV.empty_dg_error_message SPAN { margin-left:5px; margin-right:5px; }
+DIV.empty_dg_error_message IMG  { margin-bottom:-2px; }
+
+TEXTAREA.resizable { resize:both; }
+TEXTAREA.resizable-horizontal { resize:horizontal; }
+TEXTAREA.resizable-vertical { resize:vertical; }
+TEXTAREA.resizable-none { resize:none; }
+
+DIV.empty_dg_fieldset { padding:2px; border:#cecece 1px solid; }
+FIELDSET.empty_dg_fieldset { margin:0px; padding:0; border:#cecece 1px solid; }
+FIELDSET.empty_dg_fieldset form {}
+.empty_dg_legend { text-align:left; margin:0 5px; color:#222222;}

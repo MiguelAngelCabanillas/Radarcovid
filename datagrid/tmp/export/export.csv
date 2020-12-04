@@ -1,0 +1,11 @@
+﻿id,"region id",name,description,population,"picture url","picture url 1","is democracy","independent date","independent time"
+118,4,Andorra,test,10000,,,0,"2007-09-21 16:34:54",00:00:00
+2,1,Angola,,10000,,,0,"2009-05-28 00:00:00",00:00:00
+108,3,Antigua,,10000,,,0,"2009-05-27 00:00:00",00:00:00
+227,9,Arctic,"Lorem ipsum dolor.",10000,,,0,"2007-10-02 00:00:00",12:13:00
+212,8,Argentina,,0,,,0,,00:00:00
+119,4,Armenia,,10000,,,0,"2009-05-29 00:00:00",00:00:00
+198,7,Australia,,0,,,0,,00:00:00
+120,4,Austria,,10000,,,0,"2009-05-20 00:00:00",00:00:00
+121,4,Azerbaijan,,0,,,0,,00:00:00
+109,3,Bahamas,,0,,,0,,00:00:00
