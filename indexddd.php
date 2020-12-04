@@ -1,14 +1,25 @@
 <?php
-    
     $conexion = mysqli_connect("localhost", "root", "root");
     mysqli_select_db($conexion,"radarcovid");
     $sql = "SELECT * FROM people";
     $resultado = mysqli_query($conexion, $sql) or die(mysqli_error());
 
+    function updAmigos($id){
+        $sql = "SELECT * 
+        FROM friends a JOIN people p ON a.id2 = p.id 
+        WHERE a.id1 = $id 
+        UNION SELECT * 
+        FROM friends a JOIN people p ON a.id1 = p.id 
+        WHERE a.id2 = $id"
+    }
+
+    function updDisponibles($id){
+
+    }
+
     //while($row = mysqli_fetch_array($resultado)) {
       //  echo $row [ "id" ]." -> ".$row [ "lastname" ].", ".$row [ "firstname" ]."<br />";
     //}
-    
 ?>
 
 
@@ -52,6 +63,9 @@
                                 <td>%s</td>
                             </tr>', $id, $fn, $ln, sprintf('<input type="submit" value="" name="%s">', $id));
                     }
+                    if(isset($_POST[$id])){
+
+                    }
                 ?>
             </tbody>
         </table>
@@ -79,14 +93,11 @@
                 <select name="disponibles" id="disponibles" multiple>
                     <!--Habria que generar el codigo dinamicamente, pongo algunos ejemplos-->
                     <?php
-
                     $resultado = mysqli_query($conexion, $sql) or die(mysqli_error());
                     while($row = mysqli_fetch_array($resultado)) {
                        echo "<option value=\"".$row [ "id" ]."\">".$row [ "lastname" ].", ".$row [ "firstname" ]."</option>";
                     }
                     ?>
-
-                    <!--<option value="mcrg">Tu Prima</option>-->
                 </select>
                 <br><br>
                 <input type="submit" value="" name="boton2" class="boton2">
