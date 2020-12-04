@@ -58,7 +58,7 @@
 
         <!--Seleccion Multiple de Amigos-->
         <div class="selectAmigos">
-            <form action="">
+            <form action="indexddd.php" method="post">
                 <label for="amigos">Amigos</label>
                 <select name="amigos" id="amigos" multiple>
                     <!--Habria que generar el codigo dinamicamente, pongo algunos ejemplos-->
@@ -68,17 +68,21 @@
                     <option value="magm">Manuel Antonio Gomez Merino</option>
                 </select>
                 <br><br>
-                <input type="submit" value="Submit">
+                <input type="submit" value="" name="boton1" class="boton1">
             </form>
         </div>
 
         <!--Seleccion Multiple de Disponibles-->
         <div class="selectDisponibles">
-            <form action="">
+            <form action="indexddd.php" method="post">
                 <label for="disponibles">Disponibles</label>
                 <select name="disponibles" id="disponibles" multiple>
                     <!--Habria que generar el codigo dinamicamente, pongo algunos ejemplos-->
                     <?php
+                    if(isset($_POST["boton1"])){
+                        echo "<script type='text/javascript'>alert('Boton 1 pulsado');</script>";
+                    }
+                    
                     while($row = mysqli_fetch_array($resultado)) {
                        echo "<option value=\"".$row [ "id" ]."\">".$row [ "lastname" ].", ".$row [ "firstname" ]."</option>";
                     }
@@ -87,17 +91,9 @@
                     <!--<option value="mcrg">Tu Prima</option>-->
                 </select>
                 <br><br>
-                <input type="submit" value="Submit">
+                <input type="submit" value="" name="boton2" class="boton2">
             </form>
         </div>
 
-        <!--Botones-->
-        <div class="botones">
-            <form action="">
-                <input type="image" name="envioADisponibles" src="images/fder.jpg" alt="flecha_der"> <!--NO VAN LAS PUTAS IMAGENES-->
-                <input type="image" name="envioAAmigoss" src="images/fizq.png" alt="flecha_izq"> <!--NO VAN LAS PUTAS IMAGENES-->
-            </form>
-        </div>
-        
     </body>
 </html>
