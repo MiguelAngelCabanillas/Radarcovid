@@ -3,17 +3,19 @@
     mysqli_select_db($conexion,"radarcovid");
     $sql = "SELECT * FROM people";
     $resultado = mysqli_query($conexion, $sql) or die(mysqli_error());
+    $sqlDisp = NULL;
+    $sqlAmigos = NULL;
+
 
     function updAmigos($id){
-        $sqlAmigos = "SELECT * 
+        global $sqlAmigos;
+        $sqlAmigos= "SELECT * 
         FROM friends a JOIN people p ON a.id2 = p.id 
         WHERE a.id1 = $id 
         UNION SELECT * 
         FROM friends a JOIN people p ON a.id1 = p.id 
         WHERE a.id2 = $id";
-
-        $resultadoAmigos = mysqli_query($conexion, $sql) or die(mysqli_error());
-        //return $resultadoAmigos;
+        
 
         /*echo "<select name="amigos" id="amigos" multiple>";
     while ($row = mysql_fetch_row($resultadoAmigos))
@@ -24,19 +26,12 @@
     }
 
     function updDisponibles($id){
-        $sqlDisp = 
-        "SELECT *
-        FROM people
-        MINUS   
-        (SELECT * 
-        FROM friends a JOIN people p ON a.id2 = p.id 
-        WHERE a.id1 = $id 
-        UNION SELECT * 
-        FROM friends a JOIN people p ON a.id1 = p.id 
-        WHERE a.id2 = $id";
-
-        $resultadoDisponibles = mysqli_query($conexion, $sql) or die(mysqli_error());
-        return $resultadoDisponibles;
+       global $sqlDisp;
+       $sqlDisp= "SELECT firstname, lastname
+       FROM people 
+       WHERE id NOT IN(SELECT id
+       FROM friends a1 JOIN people p1 ON a1.id2 = p1.id 
+       WHERE a1.id1 = $id) AND id NOT IN (SELECT id FROM friends a2 JOIN people p2 on a2.id1 = p2.id WHERE a2.id2 = $id) AND id <> $id";
     }
 
     //while($row = mysqli_fetch_array($resultado)) {
@@ -84,11 +79,12 @@
                                 <td>%s</td>
                                 <td>%s</td>
                             </tr>', $id, $fn, $ln, sprintf('<input type="submit" value="" name="%s">', $id));
+                            if(isset($_POST[$id])){
+                                updAmigos($id);
+                                updDisponibles($id);
+                            }
                     }
-                    if(isset($_POST[$id])){
-                        $sql = updAmigos($id);
-                        
-                    }
+
                 ?>
             </tbody>
         </table>
@@ -104,9 +100,11 @@
                     <option value="fmbn">Francisco Maria Bono Navarro</option>
                     <option value="magm">Manuel Antonio Gomez Merino</option><-->
                     <?php
-                    //$resultado = mysqli_query($conexion, $sql) or die(mysqli_error());
-                    while($row = mysqli_fetch_array($resultado)) {
-                       echo "<option value=\"".$row [ "id" ]."\">".$row [ "lastname" ].", ".$row [ "firstname" ]."</option>";
+                    if(!is_null($sqlAmigos)){
+                        $consultaA = mysqli_query($conexion, $sqlAmigos) or die(mysqli_error());
+                        while($row = mysqli_fetch_array($consultaA)) {
+                           echo "<option value=\"".$row [ "id" ]."\">".$row [ "lastname" ].", ".$row [ "firstname" ]."</option>";
+                        }
                     }
                     ?>
                 </select>
@@ -122,10 +120,12 @@
                 <select name="disponibles" id="disponibles" multiple>
                     <!--Habria que generar el codigo dinamicamente, pongo algunos ejemplos-->
                     <?php
-                    $resultado = mysqli_query($conexion, $sql) or die(mysqli_error());
-                    while($row = mysqli_fetch_array($resultado)) {
-                       echo "<option value=\"".$row [ "id" ]."\">".$row [ "lastname" ].", ".$row [ "firstname" ]."</option>";
-                    }
+                    if(!is_null($sqlDisp)){
+                        $consultaD = mysqli_query($conexion, $sqlDisp) or die(mysqli_error());
+                        while($row = mysqli_fetch_array($consultaD)) {
+                           echo "<option value=\"".$row [ "id" ]."\">".$row [ "lastname" ].", ".$row [ "firstname" ]."</option>";
+                        }
+                    } 
                     ?>
                 </select>
                 <br><br>
