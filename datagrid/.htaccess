@@ -1,4 +1,0 @@
-<FILES ~ "datagrid.class.php$">  
-    Order allow,deny  
-    Deny from all  
-</FILES>

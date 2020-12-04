@@ -1,4 +1,0 @@
-<FILES ~ "\.cch$">  
-    Order allow,deny  
-    Deny from all  
-</FILES>
