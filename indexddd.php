@@ -10,7 +10,7 @@
         WHERE a.id1 = $id 
         UNION SELECT * 
         FROM friends a JOIN people p ON a.id1 = p.id 
-        WHERE a.id2 = $id"
+        WHERE a.id2 = $id";
     }
 
     function updDisponibles($id){
