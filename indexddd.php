@@ -1,18 +1,18 @@
 <?php
-    include 'bd.php';
-    //$conexion = mysqli_connect("localhost", "root", "root");
-    //mysqli_select_db($conexion,"radarcovid");
+    $conexion = abrirConexion();
     $sql = "SELECT * FROM people";
     $resultado = mysqli_query($conexion, $sql) or die(mysqli_error());
+    mysqli_close($conexion);
     $sqlDisp = NULL;
     $sqlAmigos = NULL;
     $seleccionado = "";
 
-    if (isset($_GET['pageno'])) {
-        $pageno = $_GET['pageno'];
-    } else {
-        $pageno = 1;
+    function abrirConexion(){
+        $conn= mysqli_connect("localhost", "root", "root");
+        mysqli_select_db($conn,"radarcovid");  
+        return $conn;
     }
+
     function updAmigos($id){
         global $sqlAmigos;
         $sqlAmigos= "SELECT * 
@@ -21,19 +21,11 @@
         UNION SELECT * 
         FROM friends a JOIN people p ON a.id1 = p.id 
         WHERE a.id2 = $id";
-        
-
-        /*echo "<select name="amigos" id="amigos" multiple>";
-    while ($row = mysql_fetch_row($resultadoAmigos))
-    {
-        echo "<option value=\"".$row [ "id" ]."\">".$row [ "lastname" ].", ".$row [ "firstname" ]."</option>";
-    }
-        echo "</select>";*/
     }
 
     function updDisponibles($id){
        global $sqlDisp;
-       $sqlDisp= "SELECT firstname, lastname
+       $sqlDisp= "SELECT id, firstname, lastname
        FROM people 
        WHERE id NOT IN(SELECT id
        FROM friends a1 JOIN people p1 ON a1.id2 = p1.id 
@@ -42,12 +34,19 @@
 
 
     function anyadirAmigo($id1, $id2){
+        $conexion = abrirConexion();
         $query = "INSERT INTO friends values ($id1, $id2)";
+        $aux = mysqli_query($conexion, $query);
+        mysqli_close($conexion);
     }
 
-    //while($row = mysqli_fetch_array($resultado)) {
-      //  echo $row [ "id" ]." -> ".$row [ "lastname" ].", ".$row [ "firstname" ]."<br />";
-    //}
+    function eliminarAmigo($id1, $id2){
+        $conexion = abrirConexion();
+        $query = "DELETE from friends where (id1 = $id1 and id2 = $id2) or (id1 = $id2 and id2 = $id1)";
+        $aux = mysqli_query($conexion, $query);
+        mysqli_close($conexion);
+    }
+
 ?>
 
 
@@ -59,16 +58,6 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-    <ul class="pagination">
-    <li><a href="?pageno=1">First</a></li>
-    <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
-        <a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?pageno=".($pageno - 1); } ?>">Prev</a>
-    </li>
-    <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
-        <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?pageno=".($pageno + 1); } ?>">Next</a>
-    </li>
-    <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
-</ul>
     <form action="indexddd.php" method="post">
     <div id="tabla">
         <table class="blueTable">
@@ -89,7 +78,9 @@
             </tfoot>
             <tbody>
                 <?php
+                    $conexion = abrirConexion();
                     $resultado = mysqli_query($conexion, $sql) or die(mysqli_error());
+                    mysqli_close($conexion);
                     while($row = mysqli_fetch_array($resultado)) {
                         $id = $row["id"];
                         $fn = $row["firstname"];
@@ -108,12 +99,26 @@
                             }
                     }
 
-                    if(isset($_POST['idSelec1'])){
-                        $seleccionado .= $_POST['idSelec1'];
+                    if(isset($_POST['idEliminarAmigo'])){
+                        $seleccionado .= $_POST['idEliminarAmigo'];
+                        $idEliminar = $_POST['amigos'];
+
+                        for ($i=0;$i<count($idEliminar);$i++) 
+                        { 
+                            eliminarAmigo($seleccionado,$idEliminar[$i]);
+                        }
+
                         updAmigos($seleccionado);
                         updDisponibles($seleccionado);
-                    } else if (isset($_POST['idSelec2'])){
-                        $seleccionado .= $_POST['idSelec2'];
+                    } else if (isset($_POST['idInsertarAmigo'])){
+                        $seleccionado .= $_POST['idInsertarAmigo'];
+                        $idInsertar = $_POST['disponibles'];
+
+                        for ($i=0;$i<count($idInsertar);$i++) 
+                        { 
+                            anyadirAmigo($seleccionado,$idInsertar[$i]);
+                        }
+
                         updAmigos($seleccionado);
                         updDisponibles($seleccionado);
                     }
@@ -127,26 +132,23 @@
         <div class="selectAmigos">
             <form action="indexddd.php" method="post">
                 <label for="amigos">Amigos</label>
-                <select name="amigos" id="amigos" multiple>
-                    <!--Habria que generar el codigo dinamicamente, pongo algunos ejemplos-->
-                    <!--<option value="mcrg">Manuel Cristobal Roldan Gomez</option>
-                    <option value="dmg">Daniel Melero Garcia</option>
-                    <option value="fmbn">Francisco Maria Bono Navarro</option>
-                    <option value="magm">Manuel Antonio Gomez Merino</option><-->
+                <select name="amigos[]" id="amigos" multiple>
                     <?php
                     if(!is_null($sqlAmigos)){
+                        $conexion = abrirConexion();
                         $consultaA = mysqli_query($conexion, $sqlAmigos) or die(mysqli_error());
+                        mysqli_close($conexion);
                         while($row = mysqli_fetch_array($consultaA)) {
-                           echo "<option value=\"".$row [ "id" ]."\">".$row [ "lastname" ].", ".$row [ "firstname" ]."</option>";
+                            printf('<option value="%d" > %d:  %s %s </option>', $row["id"], $row["id"], $row["firstname"], $row["lastname"]);
                         }
                     }
                     ?>
                 </select>
                 <br><br>
                 <?php 
-                    printf('<input type="hidden" value="%s" name="idSelec1">', $seleccionado);
+                    printf('<input type="hidden" value="%s" name="idEliminarAmigo">', $seleccionado);
                 ?>
-                <input type="submit" value="" name="boton1" class="boton1">
+                <input type="submit" value="" name="boton2" class="boton2">
             </form>
         </div>
 
@@ -154,21 +156,23 @@
         <div class="selectDisponibles">
             <form action="indexddd.php" method="post">
                 <label for="disponibles">Disponibles</label>
-                <select name="disponibles" id="disponibles" multiple>
+                <select name="disponibles[]" id="disponibles" multiple>
                     <?php
                     if(!is_null($sqlDisp)){
+                        $conexion = abrirConexion();
                         $consultaD = mysqli_query($conexion, $sqlDisp) or die(mysqli_error());
+                        mysqli_close($conexion);
                         while($row = mysqli_fetch_array($consultaD)) {
-                           echo "<option value=\"".$row [ "id" ]."\">".$row [ "lastname" ].", ".$row [ "firstname" ]."</option>";
+                            printf('<option value="%d" > %d:  %s %s </option>', $row["id"], $row["id"], $row["firstname"], $row["lastname"]);
                         }
                     } 
                     ?>
                 </select>
                 <br><br>
                 <?php 
-                    printf('<input type="hidden" value="%s" name="idSelec2">', $seleccionado);
+                    printf('<input type="hidden" value="%s" name="idInsertarAmigo">', $seleccionado);
                 ?>
-                <input type="submit" value="" name="boton2" class="boton2">
+                <input type="submit" value="" name="boton1" class="boton1">
             </form>
         </div>
 
