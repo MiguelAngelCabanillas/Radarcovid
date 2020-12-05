@@ -101,27 +101,37 @@
 
                     if(isset($_POST['idEliminarAmigo'])){
                         $seleccionado .= $_POST['idEliminarAmigo'];
-                        $idEliminar = $_POST['amigos'];
+                        if(isset($_POST['amigos'])){
+                            $idEliminar = $_POST['amigos'];
 
-                        for ($i=0;$i<count($idEliminar);$i++) 
-                        { 
-                            eliminarAmigo($seleccionado,$idEliminar[$i]);
+                            for ($i=0;$i<count($idEliminar);$i++) 
+                            { 
+                                eliminarAmigo($seleccionado,$idEliminar[$i]);
+                            }
+
+                            updAmigos($seleccionado);
+                            updDisponibles($seleccionado);
+                        } else {
+                            updAmigos($seleccionado);
+                            updDisponibles($seleccionado);
                         }
-
-                        updAmigos($seleccionado);
-                        updDisponibles($seleccionado);
                     } else if (isset($_POST['idInsertarAmigo'])){
                         $seleccionado .= $_POST['idInsertarAmigo'];
-                        $idInsertar = $_POST['disponibles'];
+                        if(isset($_POST['disponibles'])){
+                            $idInsertar = $_POST['disponibles'];
 
-                        for ($i=0;$i<count($idInsertar);$i++) 
-                        { 
-                            anyadirAmigo($seleccionado,$idInsertar[$i]);
-                        }
+                            for ($i=0;$i<count($idInsertar);$i++) 
+                            { 
+                                anyadirAmigo($seleccionado,$idInsertar[$i]);
+                            }
 
-                        updAmigos($seleccionado);
-                        updDisponibles($seleccionado);
-                    }
+                            updAmigos($seleccionado);
+                            updDisponibles($seleccionado);
+                        } else {
+                            updAmigos($seleccionado);
+                            updDisponibles($seleccionado); 
+                        }    
+                    }    
 
                 ?>
             </tbody>
