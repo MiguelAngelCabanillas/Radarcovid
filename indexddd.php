@@ -6,6 +6,7 @@
     $resultado = mysqli_query($conexion, $sql) or die(mysqli_error());
     $sqlDisp = NULL;
     $sqlAmigos = NULL;
+    $seleccionado = "";
 
     if (isset($_GET['pageno'])) {
         $pageno = $_GET['pageno'];
@@ -101,9 +102,20 @@
                                 <td>%s</td>
                             </tr>', $id, $fn, $ln, sprintf('<input type="submit" value="" name="%s">', $id));
                             if(isset($_POST[$id])){
+                                $seleccionado = $id;
                                 updAmigos($id);
                                 updDisponibles($id);
                             }
+                    }
+
+                    if(isset($_POST['idSelec1'])){
+                        $seleccionado .= $_POST['idSelec1'];
+                        updAmigos($seleccionado);
+                        updDisponibles($seleccionado);
+                    } else if (isset($_POST['idSelec2'])){
+                        $seleccionado .= $_POST['idSelec2'];
+                        updAmigos($seleccionado);
+                        updDisponibles($seleccionado);
                     }
 
                 ?>
@@ -131,6 +143,9 @@
                     ?>
                 </select>
                 <br><br>
+                <?php 
+                    printf('<input type="hidden" value="%s" name="idSelec1">', $seleccionado);
+                ?>
                 <input type="submit" value="" name="boton1" class="boton1">
             </form>
         </div>
@@ -150,6 +165,9 @@
                     ?>
                 </select>
                 <br><br>
+                <?php 
+                    printf('<input type="hidden" value="%s" name="idSelec2">', $seleccionado);
+                ?>
                 <input type="submit" value="" name="boton2" class="boton2">
             </form>
         </div>
