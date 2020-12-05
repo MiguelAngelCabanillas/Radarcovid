@@ -1,12 +1,17 @@
 <?php
-    $conexion = mysqli_connect("localhost", "root", "root");
-    mysqli_select_db($conexion,"radarcovid");
+    include 'bd.php';
+    //$conexion = mysqli_connect("localhost", "root", "root");
+    //mysqli_select_db($conexion,"radarcovid");
     $sql = "SELECT * FROM people";
     $resultado = mysqli_query($conexion, $sql) or die(mysqli_error());
     $sqlDisp = NULL;
     $sqlAmigos = NULL;
 
-
+    if (isset($_GET['pageno'])) {
+        $pageno = $_GET['pageno'];
+    } else {
+        $pageno = 1;
+    }
     function updAmigos($id){
         global $sqlAmigos;
         $sqlAmigos= "SELECT * 
@@ -34,6 +39,11 @@
        WHERE a1.id1 = $id) AND id NOT IN (SELECT id FROM friends a2 JOIN people p2 on a2.id1 = p2.id WHERE a2.id2 = $id) AND id <> $id";
     }
 
+
+    function anyadirAmigo($id1, $id2){
+        $query = "INSERT INTO friends values ($id1, $id2)";
+    }
+
     //while($row = mysqli_fetch_array($resultado)) {
       //  echo $row [ "id" ]." -> ".$row [ "lastname" ].", ".$row [ "firstname" ]."<br />";
     //}
@@ -48,7 +58,18 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
+    <ul class="pagination">
+    <li><a href="?pageno=1">First</a></li>
+    <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
+        <a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?pageno=".($pageno - 1); } ?>">Prev</a>
+    </li>
+    <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
+        <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?pageno=".($pageno + 1); } ?>">Next</a>
+    </li>
+    <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
+</ul>
     <form action="indexddd.php" method="post">
+    <div id="tabla">
         <table class="blueTable">
             <thead>
             <tr>
@@ -88,6 +109,7 @@
                 ?>
             </tbody>
         </table>
+        </div>
     </form>
         <!--Seleccion Multiple de Amigos-->
         <div class="selectAmigos">
@@ -118,7 +140,6 @@
             <form action="indexddd.php" method="post">
                 <label for="disponibles">Disponibles</label>
                 <select name="disponibles" id="disponibles" multiple>
-                    <!--Habria que generar el codigo dinamicamente, pongo algunos ejemplos-->
                     <?php
                     if(!is_null($sqlDisp)){
                         $consultaD = mysqli_query($conexion, $sqlDisp) or die(mysqli_error());
