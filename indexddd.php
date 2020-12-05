@@ -111,7 +111,7 @@
 
                             updAmigos($seleccionado);
                             updDisponibles($seleccionado);
-                        } else {
+                        } else if ($seleccionado != "") {
                             updAmigos($seleccionado);
                             updDisponibles($seleccionado);
                         }
@@ -127,7 +127,7 @@
 
                             updAmigos($seleccionado);
                             updDisponibles($seleccionado);
-                        } else {
+                        } else if ($seleccionado != "") {
                             updAmigos($seleccionado);
                             updDisponibles($seleccionado); 
                         }    
