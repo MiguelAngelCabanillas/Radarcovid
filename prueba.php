@@ -6,6 +6,11 @@
     $sqlDisp = NULL;
     $sqlAmigos = NULL;
     $seleccionado = "";
+    if(isset($_POST['idInsertarAmigo'])){
+        $seleccionado .= $_POST['idInsertarAmigo'];
+    } else if (isset($_POST['idEliminarAmigo'])){
+        $seleccionado .= $_POST['idEliminarAmigo'];
+    }
 
     function abrirConexion(){
         $conn= mysqli_connect("localhost", "root", "root");
@@ -80,17 +85,22 @@
                                 $id = $row["id"];
                                 $fn = $row["firstname"];
                                 $ln = $row["lastname"];
+
                                 if(isset($_POST[$id])){
-                                    if($seleccionado = $id){
-                                        printf('
+                                    $seleccionado = $id;
+                                    updAmigos($id);
+                                    updDisponibles($id);
+                                }
+
+                                if($seleccionado == $id){
+                                    printf('
                                     <tr>
                                         <td>%s</td>
                                         <td>%s</td>
                                         <td>%s</td>
                                         <td>%s</td>
                                     </tr>', $id, $fn, $ln, sprintf('<input type="submit" value="Seleccionado" class="botonSeleccionado" name="%s">', $id));
-                                    }
-                                }else{
+                                } else {
                                     printf('
                                     <tr>
                                         <td>%s</td>
@@ -99,17 +109,10 @@
                                         <td>%s</td>
                                     </tr>', $id, $fn, $ln, sprintf('<input type="submit" value="Seleccionar" class="botonSeleccionar" name="%s">', $id));
                                 }
-                               
-                                    if(isset($_POST[$id])){
-                                        $seleccionado = $id;
-                                        updAmigos($id);
-                                        updDisponibles($id);
-                                    }
                             }
 
 
                             if(isset($_POST['idEliminarAmigo'])){
-                                $seleccionado .= $_POST['idEliminarAmigo'];
                                 if(isset($_POST['amigos'])){
                                     $idEliminar = $_POST['amigos'];
         
@@ -125,7 +128,6 @@
                                     updDisponibles($seleccionado);
                                 }
                             } else if (isset($_POST['idInsertarAmigo'])){
-                                $seleccionado .= $_POST['idInsertarAmigo'];
                                 if(isset($_POST['disponibles'])){
                                     $idInsertar = $_POST['disponibles'];
         
