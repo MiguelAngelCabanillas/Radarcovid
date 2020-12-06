@@ -55,7 +55,7 @@
     <head>
         <meta charset="utf-8">
         <title>RastreoCovid19</title>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="style2.css">
     </head>
     <body>
     <form action="indexddd.php" method="post">
