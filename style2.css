@@ -90,22 +90,83 @@ html, body{
 .boton1 {
     position: relative;
     float:left;
-    background-image: url(images/fizq.png);
+    background-image: url(images/fizquierda1.png);
+    background-size: 150%;
+    background-position: 50% 50%;
+    padding: 0;
+    outline: none;
+    border-radius:50%;
+    border-color: #5592bb;
     width: 128px;
     height: 128px;
     margin-left: -55%;
     margin-top: -60%;
+    background-color: rgba(0, 0, 0, 0);
 }
+
 
 .boton2 {
     position: relative;
     float:left;
-    background-image: url(images/fder.jpg);
+    background-image: url(images/fderecha1.png);
+    background-size: 150%;
+    background-position: 50% 50%;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: #5592bb;
+    padding: 0;
+    outline: none;
+    border-radius: 50%;
     width: 128px;
     height: 128px;
     margin-left: 120%;
     margin-top: -115%;
     z-index: 2;
+}
+
+.botonSeleccionar{
+  width: 100px;
+  height: 23px;
+  margin-left: 30%;
+  margin-top: 0%;
+  background: rgba(72,172,234,1);
+  background: -moz-linear-gradient(left, rgba(72,172,234,1) 0%, rgba(31,143,229,1) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(72,172,234,1)), color-stop(100%, rgba(31,143,229,1)));
+  background: -webkit-linear-gradient(left, rgba(72,172,234,1) 0%, rgba(31,143,229,1) 100%);
+  background: -o-linear-gradient(left, rgba(72,172,234,1) 0%, rgba(31,143,229,1) 100%);
+  background: -ms-linear-gradient(left, rgba(72,172,234,1) 0%, rgba(31,143,229,1) 100%);
+  background: linear-gradient(to right, rgba(72,172,234,1) 0%, rgba(31,143,229,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48acea', endColorstr='#1f8fe5', GradientType=1 );
+  border-radius: 122px 122px 122px 122px;
+  -moz-border-radius: 122px 122px 122px 122px;
+  -webkit-border-radius: 122px 122px 122px 122px;
+  border: 0px solid #000000;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.botonSeleccionar:hover{
+    background: #2079b0;
+    background-image: -webkit-linear-gradient(top, #2079b0, #0dd3ff);
+    background-image: -moz-linear-gradient(top, #2079b0, #0dd3ff);
+    background-image: -ms-linear-gradient(top, #2079b0, #0dd3ff);
+    background-image: -o-linear-gradient(top, #2079b0, #0dd3ff);
+    background-image: linear-gradient(to bottom, #2079b0, #0dd3ff);
+    text-decoration: none;
+}
+
+.botonSeleccionado{
+  width: 100px;
+  height: 23px;
+  margin-left: 30%;
+  margin-top: 0%;
+  background: red;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48acea', endColorstr='#1f8fe5', GradientType=1 );
+  border-radius: 122px 122px 122px 122px;
+  -moz-border-radius: 122px 122px 122px 122px;
+  -webkit-border-radius: 122px 122px 122px 122px;
+  border: 0px solid #000000;
+  font-weight: 600;
+  font-size: 12px;
 }
 
 #amigos{

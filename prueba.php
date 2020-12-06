@@ -80,19 +80,34 @@
                                 $id = $row["id"];
                                 $fn = $row["firstname"];
                                 $ln = $row["lastname"];
-                                printf('
+                                if(isset($_POST[$id])){
+                                    if($seleccionado = $id){
+                                        printf('
                                     <tr>
                                         <td>%s</td>
                                         <td>%s</td>
                                         <td>%s</td>
                                         <td>%s</td>
-                                    </tr>', $id, $fn, $ln, sprintf('<input type="submit" value="" name="%s">', $id));
+                                    </tr>', $id, $fn, $ln, sprintf('<input type="submit" value="Seleccionado" class="botonSeleccionado" name="%s">', $id));
+                                    }
+                                }else{
+                                    printf('
+                                    <tr>
+                                        <td>%s</td>
+                                        <td>%s</td>
+                                        <td>%s</td>
+                                        <td>%s</td>
+                                    </tr>', $id, $fn, $ln, sprintf('<input type="submit" value="Seleccionar" class="botonSeleccionar" name="%s">', $id));
+                                }
+                               
                                     if(isset($_POST[$id])){
                                         $seleccionado = $id;
                                         updAmigos($id);
                                         updDisponibles($id);
                                     }
                             }
+
+
                             if(isset($_POST['idEliminarAmigo'])){
                                 $seleccionado .= $_POST['idEliminarAmigo'];
                                 if(isset($_POST['amigos'])){
