@@ -88,7 +88,7 @@
                                         <td>%s</td>
                                         <td>%s</td>
                                         <td>%s</td>
-                                    </tr>', $id, $fn, $ln, sprintf('<input type="submit" value="Seleccionado" class="botonSeleccionado" name="%s">', $id));
+                                    </tr>', $id, $fn, $ln, sprintf('<input type="submit" style="cursor:pointer" value="Seleccionado" class="botonSeleccionado" name="%s">', $id));
                                     }
                                 }else{
                                     printf('
@@ -97,7 +97,7 @@
                                         <td>%s</td>
                                         <td>%s</td>
                                         <td>%s</td>
-                                    </tr>', $id, $fn, $ln, sprintf('<input type="submit" value="Seleccionar" class="botonSeleccionar" name="%s">', $id));
+                                    </tr>', $id, $fn, $ln, sprintf('<input type="submit" style="cursor:pointer" value="Seleccionar" class="botonSeleccionar" name="%s">', $id));
                                 }
                                
                                     if(isset($_POST[$id])){
@@ -170,7 +170,7 @@
                     <?php 
                         printf('<input type="hidden" value="%s" name="idEliminarAmigo">', $seleccionado);
                     ?>
-                   <input type="submit" value="" name="boton2" class="boton2"> 
+                   <input type="submit" value="" style="cursor:pointer" name="boton2" class="boton2"> 
                 </form>
             </div>
         </div>
@@ -200,7 +200,7 @@
                     <?php 
                         printf('<input type="hidden" value="%s" name="idInsertarAmigo">', $seleccionado);
                     ?>
-                    <input type="submit" value="" name="boton1" class="boton1">
+                    <input type="submit" value="" style="cursor:pointer" name="boton1" class="boton1">
                 </form>
             </div>
         </div>

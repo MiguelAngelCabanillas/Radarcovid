@@ -13,13 +13,14 @@ html, body{
     width: 100%;
     height: 100%;
     text-align: left;
+    font-family: Calibri;
   }
   .blueTable td, table.blueTable th {
     border: 1px solid #AAAAAA;
     padding: 3px 2px;
   }
   .blueTable tbody td {
-    font-size: 13px;
+    font-size: 15px;
   }
   .blueTable tr:nth-child(even) {
     background: #D0E4F5;
@@ -136,12 +137,14 @@ html, body{
   background: -ms-linear-gradient(left, rgba(72,172,234,1) 0%, rgba(31,143,229,1) 100%);
   background: linear-gradient(to right, rgba(72,172,234,1) 0%, rgba(31,143,229,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48acea', endColorstr='#1f8fe5', GradientType=1 );
-  border-radius: 122px 122px 122px 122px;
+  border-radius: 122px;
   -moz-border-radius: 122px 122px 122px 122px;
   -webkit-border-radius: 122px 122px 122px 122px;
   border: 0px solid #000000;
   font-weight: 600;
   font-size: 12px;
+  outline:none;
+
 }
 
 .botonSeleccionar:hover{
@@ -161,7 +164,7 @@ html, body{
   margin-top: 0%;
   background: red;
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#48acea', endColorstr='#1f8fe5', GradientType=1 );
-  border-radius: 122px 122px 122px 122px;
+  border-radius: 122px;
   -moz-border-radius: 122px 122px 122px 122px;
   -webkit-border-radius: 122px 122px 122px 122px;
   border: 0px solid #000000;
@@ -172,11 +175,15 @@ html, body{
 #amigos{
   width: 100%;
   height: 50%;
+  font-family: Calibri;
+  font-size: 17px;
 }
 
 #disponibles{
   width: 100%;
   height: 50%;
+  font-family: Calibri;
+  font-size: 17px;
 }
 
 #personContainer{
