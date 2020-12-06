@@ -100,7 +100,6 @@
                                         <td>%s</td>
                                         <td>%s</td>
                                     </tr>', $id, $fn, $ln, sprintf('<input type="submit" style="cursor:pointer" value="Seleccionado" class="botonSeleccionado" name="%s">', $id));
-                                    }
                                 }else{
                                     printf('
                                     <tr>
