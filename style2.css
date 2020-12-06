@@ -211,6 +211,7 @@ html, body{
     position: relative;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 40px;
+    text-shadow: 5px 5px 5px #00205a;
     color: rgb(255, 255, 255);
     top: 100px;
     margin-left: 30%;
@@ -220,6 +221,7 @@ html, body{
     position: relative;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 40px;
+    text-shadow: 5px 5px 5px #00205a;
     color: rgb(255, 255, 255);
     top: 100px;
     margin-left: 20%;
@@ -229,6 +231,7 @@ html, body{
     position: relative;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 40px;
+    text-shadow: 5px 5px 5px #00205a;
     color: rgb(255, 255, 255);
     top: 100px;
     margin-left: 15%;
