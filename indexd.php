@@ -66,7 +66,7 @@
                 <span id="personLabel">Personas</span>
             </div>
             <div id="personTable">
-                <form action="prueba.php" method="post">
+                <form action="indexd.php" method="post">
                 <table class="blueTable">
                     <thead>
                     <tr>
@@ -155,7 +155,7 @@
                 <span id="friendsLabel">Amigos</span>
             </div>
             <div class="selectFriends">
-                <form action="prueba.php" method="post" id="formFriends">
+                <form action="indexd.php" method="post" id="formFriends">
                     <select name="amigos[]" id="amigos" multiple>
                         <?php
                         if(!is_null($sqlAmigos)){
@@ -185,7 +185,7 @@
                 <span id="availablesLabel">Disponibles</span>
             </div>
             <div class="selectAvailables">
-                <form action="prueba.php" method="post" id="formAvailables">
+                <form action="indexd.php" method="post" id="formAvailables">
                     <select name="disponibles[]" id="disponibles" multiple>
                         <?php
                         if(!is_null($sqlDisp)){
