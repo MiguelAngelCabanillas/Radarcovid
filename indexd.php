@@ -1,8 +1,5 @@
 <?php
-    $conexion = abrirConexion();
     $sql = "SELECT * FROM people";
-    $resultado = mysqli_query($conexion, $sql) or die(mysqli_error());
-    mysqli_close($conexion);
     $sqlDisp = NULL;
     $sqlAmigos = NULL;
     $seleccionado = "";
