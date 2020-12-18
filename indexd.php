@@ -54,8 +54,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>RadarCovid19</title>
+        <title>Rastreo-Covid19</title>
         <link rel="stylesheet" href="style2.css">
+        <link  rel="icon"   href="images/icono.png" type="image/png" />
     </head>
     <body>
         <div id="personContainer">
